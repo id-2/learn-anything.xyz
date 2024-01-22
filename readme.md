@@ -242,15 +242,13 @@ Read instructions in [mobile](mobile)
 
 ## Contribute
 
-Always open to useful ideas or fixes in form of issues or PRs.
+Current tasks to do are in [GitHub issues](../../issues) (organised with [labels](https://github.com/learn-anything/learn-anything.xyz/labels)). Tasks currently in focus are seen [here](https://github.com/learn-anything/learn-anything.xyz/labels/Current%20Month).
 
-Current [issues](../../issues) are organised with [labels](https://github.com/learn-anything/learn-anything.xyz/labels). Issues currently in focus are labeled with [Current Month](https://github.com/learn-anything/learn-anything.xyz/labels/Current%20Month) label.
+If task/bug is not mentioned there, open a [GitHub issue](../../issues) or [start discussion on GitHub](../../discussions) or [Discord](https://discord.com/invite/bxtD8x6aNF).
 
-If issue is not already present ([do search](../../issues) first), open [new issue](../../issues/new/choose), [start discussion](../../discussions) or ask about it on [Discord](https://discord.com/invite/bxtD8x6aNF).
+All PRs with improvements to docs/code or contributions to existing discussions/issues are welcome.
 
-It's okay to submit draft PR as you can get help along the way to make it merge ready.
-
-We want this project to have by far the best DX of any open source project on GitHub. There will be live streams of developing the code, various educational videos and a lot more in coming time.
+We want this project to have by far the best DX of any open source project on GitHub. We plan to do live streams of developing the code, various educational videos and a lot more in coming time.
 
 ## Docs
 
