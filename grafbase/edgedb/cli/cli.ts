@@ -21,8 +21,8 @@ async function main() {
   // )
   // console.log(res, "res")
   const res = await getAllLinks(hankoId)
-  // const res = await getTopicsLearned(hankoId)
   console.log(res)
+  // const res = await getTopicsLearned(hankoId)
   // const res = await getGlobalTopicDetails("physics", hankoId)
   // const res = await updateGlobalLinkProgress(
   //   hankoId,

@@ -265,8 +265,6 @@ export function createUserState(mobius: MobiusType) {
       }
     })
     const [data] = parseResponse(res)
-    console.log(data?.getAllLinks, "get all links")
-    console.log(data?.getTopicsLearned, "get topics learned")
     setUser({
       topicsLearning: data?.getTopicsLearned.topicsLearning,
       topicsToLearn: data?.getTopicsLearned.topicsToLearn,

@@ -1,11 +1,13 @@
+// TODO: improve component, it's very close to `GlobalLink`
+// also it's very messy
 import { ui } from "@la/shared"
 import { isSignedIn, parseResponse } from "@la/shared/lib"
 import clsx from "clsx"
 import { Show, createEffect, createMemo, createSignal } from "solid-js"
 import { useNavigate } from "solid-start"
-import { useGlobalState } from "../../GlobalContext/global"
-import { useUser } from "../../GlobalContext/user"
-import { useMobius } from "../../root"
+import { useMobius } from "../root"
+import { useUser } from "../GlobalContext/user"
+import { useGlobalState } from "../GlobalContext/global"
 
 interface Props {
   title: string
@@ -19,8 +21,7 @@ interface Props {
   // liked: boolean
 }
 
-// TODO: there is nicer way to do this, improve
-export default function GlobalGuideLink(props: Props) {
+export default function PersonalLink(props: Props) {
   const mobius = useMobius()
   const user = useUser()
   const global = useGlobalState()

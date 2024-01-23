@@ -1,6 +1,6 @@
 import { For } from "solid-js"
 import { useGlobalTopic } from "../../GlobalContext/global-topic"
-import GlobalGuideLink from "./GlobalGuideLink"
+import GlobalLink from "./GlobalLink"
 
 export default function GuideLinks() {
   const topic = useGlobalTopic()
@@ -17,7 +17,7 @@ export default function GuideLinks() {
                 }}
                 class="[&>*]:border-none [&>*]:bg-white [&>*]:dark:bg-neutral-900 border-[0.5px] [&>*]:rounded-[6px] dark:border-[#282828]  border-[#69696951]"
               >
-                <GlobalGuideLink
+                <GlobalLink
                   title={link.title}
                   url={link.url}
                   id={link.id}

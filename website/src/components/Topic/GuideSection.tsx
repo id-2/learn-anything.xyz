@@ -1,7 +1,7 @@
 import clsx from "clsx"
 import { For, Show } from "solid-js"
-import GlobalGuideLink from "./GlobalGuideLink"
 import { useGlobalTopic } from "../../GlobalContext/global-topic"
+import GlobalLink from "./GlobalLink"
 
 type Link = {
   title: string
@@ -61,7 +61,7 @@ export default function GuideSection(props: Props) {
             // }
             // const liked = topic.globalTopic.linksLikedIds.includes(link.id)
             return (
-              <GlobalGuideLink
+              <GlobalLink
                 title={link.title}
                 url={link.url}
                 id={link.id}

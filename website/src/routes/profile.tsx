@@ -1,4 +1,6 @@
 import { ui } from "@la/shared"
+import { parseResponse } from "@la/shared/lib"
+import { IconButton } from "@la/shared/ui"
 import { autofocus } from "@solid-primitives/autofocus"
 import * as scheduled from "@solid-primitives/scheduled"
 import clsx from "clsx"
@@ -15,11 +17,9 @@ import { A, useNavigate } from "solid-start"
 import toast, { Toaster } from "solid-toast"
 import { useGlobalState } from "../GlobalContext/global"
 import { useUser } from "../GlobalContext/user"
-import GlobalGuideLink from "../components/Topic/GlobalGuideLink"
+import GlobalLink from "../components/Topic/GlobalLink"
 import GuideNav from "../components/Topic/GuideNav"
 import { useMobius } from "../root"
-import { IconButton } from "@la/shared/ui"
-import { parseResponse } from "@la/shared/lib"
 
 type NewLink = {
   url: string
@@ -659,7 +659,7 @@ export default function Profile() {
                     {(link) => {
                       return (
                         <div class="[&>*]:border-none border rounded-[4px] dark:border-[#282828]  border-[#69696951]">
-                          <GlobalGuideLink
+                          <GlobalLink
                             personalLinkId={link.id}
                             title={
                               link.title ? link.title : link.globalLink.title
@@ -682,7 +682,7 @@ export default function Profile() {
                     {(link) => {
                       return (
                         <div class="[&>*]:border-none border rounded-[4px] dark:border-[#282828]  border-[#69696951]">
-                          <GlobalGuideLink
+                          <GlobalLink
                             personalLinkId={link.id}
                             title={
                               link.title ? link.title : link.globalLink.title
@@ -705,7 +705,7 @@ export default function Profile() {
                     {(link) => {
                       return (
                         <div class="[&>*]:border-none border rounded-[4px] dark:border-[#282828]  border-[#69696951]">
-                          <GlobalGuideLink
+                          <GlobalLink
                             personalLinkId={link.id}
                             title={
                               link.title ? link.title : link.globalLink.title
@@ -728,7 +728,7 @@ export default function Profile() {
                     {(link) => {
                       return (
                         <div class="[&>*]:border-none border rounded-[4px] dark:border-[#282828]  border-[#69696951]">
-                          <GlobalGuideLink
+                          <GlobalLink
                             personalLinkId={link.id}
                             title={
                               link.title ? link.title : link.globalLink.title
