@@ -74,7 +74,7 @@ export default function Home() {
           raw_nodes={global.state.topicsWithConnections}
         />
         <div
-          class="flex flex-col gap-1 items-center z-50"
+          class="flex flex-col gap-1 items-center z-50 transform-gpu"
           style={`
             filter: drop-shadow(2px 6px 126px rgb(10 10 10));
           `}
@@ -85,7 +85,7 @@ export default function Home() {
             style={`filter: blur(100px)`}
           />
           <div
-            class="tracking-wide font-bold bg-clip-text "
+            class="tracking-wide font-bold bg-clip-text"
             style={`
               font-size: clamp(3rem, 10vw, 5rem);
             `}
