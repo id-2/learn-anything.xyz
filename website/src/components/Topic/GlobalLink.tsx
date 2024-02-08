@@ -1,5 +1,4 @@
-// TODO: improve component, it's very close to `PersonalLink`
-// also it's very messy
+// TODO: improve component, it's very close to `PersonalLink` and is very messy
 import { ui } from "@la/shared"
 import { isSignedIn, parseResponse } from "@la/shared/lib"
 import clsx from "clsx"

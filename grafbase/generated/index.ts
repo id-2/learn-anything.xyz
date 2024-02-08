@@ -12,42 +12,6 @@
 //  }
 
 export type Schema = {
-  'learningStatus': | 'to_learn'| 'learning'| 'learned'| 'none';
-  'personalLinkAction': | 'removeProgress'| 'bookmark'| 'inProgress'| 'complete'| 'like'| 'unlike';
-  'linkState': | 'Bookmark'| 'InProgress'| 'Completed'| 'None';
-  'section': {
-    title: string;
-    summary: string | null;
-    linkIds: Array<string>;
-  };
-  'updateGrafbaseKvOutput': {
-    name: string;
-    prettyName: string;
-    connections: Array<string>;
-  };
-  'publicGetTopicsWithConnectionsOutput': {
-    __typename?: 'publicGetTopicsWithConnectionsOutput';
-    name: string;
-    prettyName: string;
-    connections: Array<string>;
-  };
-  'publicGetGlobalTopicsOutput': {
-    __typename?: 'publicGetGlobalTopicsOutput';
-    prettyName: string;
-    name: string;
-  };
-  'publicGetPersonalTopicOutput': {
-    __typename?: 'publicGetPersonalTopicOutput';
-    prettyName: string;
-    content: string;
-    public: boolean;
-    topicPath: string;
-  };
-  'MainTopicWithTitleAndPrettyName': {
-    __typename?: 'MainTopicWithTitleAndPrettyName';
-    name: string;
-    prettyName: string;
-  };
   'GlobalLink': {
     __typename?: 'GlobalLink';
     id: string;
@@ -58,6 +22,28 @@ export type Schema = {
     description: string | null;
     mainTopic?: Schema['MainTopicWithTitleAndPrettyName'] | null;
   };
+  'MainTopicWithTitleAndPrettyName': {
+    __typename?: 'MainTopicWithTitleAndPrettyName';
+    name: string;
+    prettyName: string;
+  };
+  'Mutation': {
+    __typename?: 'Mutation';
+    createUser?: string;
+    updateTopicOfWiki?: string;
+    createProduct?: string;
+    deletePersonalLink?: string;
+    updateTopicLearningStatus?: string;
+    updatePersonalLinkStatus?: string;
+    addPersonalLink?: string;
+    cancelStripe?: string;
+    renewStripe?: string;
+    updateStripePlan?: string;
+    internalUpdateMemberUntilOfUser?: string;
+    internalUpdateGrafbaseKv?: string;
+    internalUpdateLatestGlobalGuide?: string;
+    internalAddGlobalLinkToSection?: string;
+  };
   'PersonalLink': {
     __typename?: 'PersonalLink';
     id: string;
@@ -65,84 +51,6 @@ export type Schema = {
     description: string | null;
     mainTopic?: Schema['MainTopicWithTitleAndPrettyName'] | null;
     globalLink?: Schema['GlobalLink'];
-  };
-  'globalGuideSection': {
-    __typename?: 'globalGuideSection';
-    summary: string | null;
-    title: string;
-    links?: Array<Schema['GlobalLink']>;
-  };
-  'latestGlobalGuide': {
-    __typename?: 'latestGlobalGuide';
-    sections?: Array<Schema['globalGuideSection']>;
-  };
-  'publicGetGlobalTopicOutput': {
-    __typename?: 'publicGetGlobalTopicOutput';
-    prettyName: string;
-    topicSummary: string;
-    latestGlobalGuide?: Schema['latestGlobalGuide'] | null;
-    links?: Array<Schema['GlobalLink']>;
-    notesCount: number;
-  };
-  'getUserDetailsOutput': {
-    __typename?: 'getUserDetailsOutput';
-    isMember: boolean;
-  };
-  'getPricingUserDetailsOutput': {
-    __typename?: 'getPricingUserDetailsOutput';
-    stripePlan: string | null;
-    memberUntil: string | null;
-    subscriptionStopped: boolean | null;
-  };
-  'globalNote': {
-    __typename?: 'globalNote';
-    content: string;
-    url: string | null;
-  };
-  'outputOfGetAllLinks': {
-    __typename?: 'outputOfGetAllLinks';
-    linksBookmarked?: Array<Schema['PersonalLink']>;
-    linksInProgress?: Array<Schema['PersonalLink']>;
-    linksCompleted?: Array<Schema['PersonalLink']>;
-    linksLiked?: Array<Schema['PersonalLink']>;
-  };
-  'topicToLearn': {
-    __typename?: 'topicToLearn';
-    name: string;
-    prettyName: string;
-    verified: boolean;
-  };
-  'getTopicsLearnedOutput': {
-    __typename?: 'getTopicsLearnedOutput';
-    topicsToLearn?: Array<Schema['topicToLearn']>;
-    topicsLearning?: Array<Schema['topicToLearn']>;
-    topicsLearned?: Array<Schema['topicToLearn']>;
-  };
-  'publicGetGlobalLinkOutput': {
-    __typename?: 'publicGetGlobalLinkOutput';
-    title: string;
-    url: string;
-    verified: boolean;
-    public: boolean;
-    protocol: string;
-    fullUrl: string | null;
-    description: string | null;
-    urlTitle: string | null;
-    year: string | null;
-  };
-  'getGlobalTopicOutput': {
-    __typename?: 'getGlobalTopicOutput';
-    learningStatus: string;
-    linksBookmarkedIds: Array<string>;
-    linksInProgressIds: Array<string>;
-    linksCompletedIds: Array<string>;
-    linksLikedIds: Array<string>;
-  };
-  'getGlobalLinksOutput': {
-    __typename?: 'getGlobalLinksOutput';
-    id: string;
-    title: string;
-    url: string;
   };
   'Query': {
     __typename?: 'Query';
@@ -163,28 +71,134 @@ export type Schema = {
     getStripeDashboard?: string;
     stripe?: string;
   };
-  'Mutation': {
-    __typename?: 'Mutation';
-    createUser?: string;
-    updateTopicOfWiki?: string;
-    createProduct?: string;
-    deletePersonalLink?: string;
-    updateTopicLearningStatus?: string;
-    updatePersonalLinkStatus?: string;
-    addPersonalLink?: string;
-    cancelStripe?: string;
-    renewStripe?: string;
-    updateStripePlan?: string;
-    internalUpdateMemberUntilOfUser?: string;
-    internalUpdateGrafbaseKv?: string;
-    internalUpdateLatestGlobalGuide?: string;
-    internalAddGlobalLinkToSection?: string;
+  'getGlobalLinksOutput': {
+    __typename?: 'getGlobalLinksOutput';
+    id: string;
+    title: string;
+    url: string;
+  };
+  'getGlobalTopicOutput': {
+    __typename?: 'getGlobalTopicOutput';
+    learningStatus: string;
+    linksBookmarkedIds: Array<string>;
+    linksInProgressIds: Array<string>;
+    linksCompletedIds: Array<string>;
+    linksLikedIds: Array<string>;
+  };
+  'getPricingUserDetailsOutput': {
+    __typename?: 'getPricingUserDetailsOutput';
+    stripePlan: string | null;
+    memberUntil: string | null;
+    subscriptionStopped: boolean | null;
+  };
+  'getTopicsLearnedOutput': {
+    __typename?: 'getTopicsLearnedOutput';
+    topicsToLearn?: Array<Schema['topicToLearn']>;
+    topicsLearning?: Array<Schema['topicToLearn']>;
+    topicsLearned?: Array<Schema['topicToLearn']>;
+  };
+  'getUserDetailsOutput': {
+    __typename?: 'getUserDetailsOutput';
+    isMember: boolean;
+  };
+  'globalGuideSection': {
+    __typename?: 'globalGuideSection';
+    summary: string | null;
+    title: string;
+    links?: Array<Schema['GlobalLink']>;
+  };
+  'globalNote': {
+    __typename?: 'globalNote';
+    content: string;
+    url: string | null;
+  };
+  'latestGlobalGuide': {
+    __typename?: 'latestGlobalGuide';
+    sections?: Array<Schema['globalGuideSection']>;
+  };
+  'learningStatus': | 'to_learn'| 'learning'| 'learned'| 'none';
+  'linkState': | 'Bookmark'| 'InProgress'| 'Completed'| 'None';
+  'outputOfGetAllLinks': {
+    __typename?: 'outputOfGetAllLinks';
+    linksBookmarked?: Array<Schema['PersonalLink']>;
+    linksInProgress?: Array<Schema['PersonalLink']>;
+    linksCompleted?: Array<Schema['PersonalLink']>;
+    linksLiked?: Array<Schema['PersonalLink']>;
+  };
+  'personalLinkAction': | 'removeProgress'| 'bookmark'| 'inProgress'| 'complete'| 'like'| 'unlike';
+  'publicGetGlobalLinkOutput': {
+    __typename?: 'publicGetGlobalLinkOutput';
+    title: string;
+    url: string;
+    verified: boolean;
+    public: boolean;
+    protocol: string;
+    fullUrl: string | null;
+    description: string | null;
+    urlTitle: string | null;
+    year: string | null;
+  };
+  'publicGetGlobalTopicOutput': {
+    __typename?: 'publicGetGlobalTopicOutput';
+    prettyName: string;
+    topicSummary: string;
+    latestGlobalGuide?: Schema['latestGlobalGuide'] | null;
+    links?: Array<Schema['GlobalLink']>;
+    notesCount: number;
+  };
+  'publicGetGlobalTopicsOutput': {
+    __typename?: 'publicGetGlobalTopicsOutput';
+    prettyName: string;
+    name: string;
+  };
+  'publicGetPersonalTopicOutput': {
+    __typename?: 'publicGetPersonalTopicOutput';
+    prettyName: string;
+    content: string;
+    public: boolean;
+    topicPath: string;
+  };
+  'publicGetTopicsWithConnectionsOutput': {
+    __typename?: 'publicGetTopicsWithConnectionsOutput';
+    name: string;
+    prettyName: string;
+    connections: Array<string>;
+  };
+  'section': {
+    title: string;
+    summary: string | null;
+    linkIds: Array<string>;
+  };
+  'topicToLearn': {
+    __typename?: 'topicToLearn';
+    name: string;
+    prettyName: string;
+    verified: boolean;
+  };
+  'updateGrafbaseKvOutput': {
+    name: string;
+    prettyName: string;
+    connections: Array<string>;
   };
 };
 
 import { ResolverFn } from '@grafbase/sdk'
 
 export type Resolver = {
+  'Mutation.createUser': ResolverFn<Schema['Mutation'], { email: string,  }, string>
+  'Mutation.updateTopicOfWiki': ResolverFn<Schema['Mutation'], { topicName: string, prettyName: string, content: string, published: boolean, topicPath: string,  }, string>
+  'Mutation.createProduct': ResolverFn<Schema['Mutation'], { name: string, description: string | null, imageUrl: string | null, websiteUrl: string | null, priceInUsdCents: number | null,  }, string>
+  'Mutation.deletePersonalLink': ResolverFn<Schema['Mutation'], { personalLinkId: string,  }, string>
+  'Mutation.updateTopicLearningStatus': ResolverFn<Schema['Mutation'], { learningStatus: Schema['learningStatus'], topicName: string, verifiedTopic: boolean,  }, string>
+  'Mutation.updatePersonalLinkStatus': ResolverFn<Schema['Mutation'], { action: Schema['personalLinkAction'], personalLinkId: string,  }, string>
+  'Mutation.addPersonalLink': ResolverFn<Schema['Mutation'], { url: string, title: string, linkState: Schema['linkState'], liked: boolean,  }, string>
+  'Mutation.cancelStripe': ResolverFn<Schema['Mutation'], {  }, string>
+  'Mutation.renewStripe': ResolverFn<Schema['Mutation'], {  }, string>
+  'Mutation.updateStripePlan': ResolverFn<Schema['Mutation'], {  }, string>
+  'Mutation.internalUpdateMemberUntilOfUser': ResolverFn<Schema['Mutation'], { email: string, memberUntilDateInUnixTime: number, stripeSubscriptionObjectId: string, stripePlan: string,  }, string>
+  'Mutation.internalUpdateGrafbaseKv': ResolverFn<Schema['Mutation'], { topicsWithConnections: Array<Schema['updateGrafbaseKvOutput']>,  }, string>
+  'Mutation.internalUpdateLatestGlobalGuide': ResolverFn<Schema['Mutation'], { topicName: string, topicSummary: string, sections: Array<Schema['section']>,  }, string>
+  'Mutation.internalAddGlobalLinkToSection': ResolverFn<Schema['Mutation'], { linkUrl: string, topicName: string, sectionName: string,  }, string>
   'Query.publicGetTopicsWithConnections': ResolverFn<Schema['Query'], {  }, Array<Schema['publicGetTopicsWithConnectionsOutput']>>
   'Query.publicGetGlobalTopics': ResolverFn<Schema['Query'], {  }, Array<Schema['publicGetGlobalTopicsOutput']>>
   'Query.publicGetPersonalTopic': ResolverFn<Schema['Query'], { topicName: string, user: string,  }, Array<Schema['publicGetPersonalTopicOutput']>>
@@ -201,19 +215,5 @@ export type Resolver = {
   'Query.checkUrl': ResolverFn<Schema['Query'], { linkUrl: string,  }, string>
   'Query.getStripeDashboard': ResolverFn<Schema['Query'], {  }, string>
   'Query.stripe': ResolverFn<Schema['Query'], { plan: string, userEmail: string,  }, string>
-  'Mutation.createUser': ResolverFn<Schema['Mutation'], { email: string,  }, string>
-  'Mutation.updateTopicOfWiki': ResolverFn<Schema['Mutation'], { topicName: string, prettyName: string, content: string, published: boolean, topicPath: string,  }, string>
-  'Mutation.createProduct': ResolverFn<Schema['Mutation'], { name: string, description: string | null, imageUrl: string | null, websiteUrl: string | null, priceInUsdCents: number | null,  }, string>
-  'Mutation.deletePersonalLink': ResolverFn<Schema['Mutation'], { personalLinkId: string,  }, string>
-  'Mutation.updateTopicLearningStatus': ResolverFn<Schema['Mutation'], { learningStatus: Schema['learningStatus'], topicName: string, verifiedTopic: boolean,  }, string>
-  'Mutation.updatePersonalLinkStatus': ResolverFn<Schema['Mutation'], { action: Schema['personalLinkAction'], personalLinkId: string,  }, string>
-  'Mutation.addPersonalLink': ResolverFn<Schema['Mutation'], { url: string, title: string, linkState: Schema['linkState'], liked: boolean,  }, string>
-  'Mutation.cancelStripe': ResolverFn<Schema['Mutation'], {  }, string>
-  'Mutation.renewStripe': ResolverFn<Schema['Mutation'], {  }, string>
-  'Mutation.updateStripePlan': ResolverFn<Schema['Mutation'], {  }, string>
-  'Mutation.internalUpdateMemberUntilOfUser': ResolverFn<Schema['Mutation'], { email: string, memberUntilDateInUnixTime: number, stripeSubscriptionObjectId: string, stripePlan: string,  }, string>
-  'Mutation.internalUpdateGrafbaseKv': ResolverFn<Schema['Mutation'], { topicsWithConnections: Array<Schema['updateGrafbaseKvOutput']>,  }, string>
-  'Mutation.internalUpdateLatestGlobalGuide': ResolverFn<Schema['Mutation'], { topicName: string, topicSummary: string, sections: Array<Schema['section']>,  }, string>
-  'Mutation.internalAddGlobalLinkToSection': ResolverFn<Schema['Mutation'], { linkUrl: string, topicName: string, sectionName: string,  }, string>
 }
 

@@ -12,6 +12,7 @@ import {
   createMemo,
   createSignal,
   onMount,
+  untrack,
   useContext,
 } from "solid-js"
 import { watch } from "tauri-plugin-fs-watch-api"

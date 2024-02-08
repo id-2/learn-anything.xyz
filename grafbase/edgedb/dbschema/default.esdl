@@ -234,7 +234,7 @@ module default {
     # related links to this link
     # could be link to `Code` or `Tweet` or some other Link
     multi relatedLinks: RelatedLink;
-    # connected topics for this link
+    # connected topics for this link (TODO: what is this, looks wrong)
     multi link links := .<globalLink[is Link];
   }
   type PersonalLink {
@@ -243,6 +243,7 @@ module default {
     };
     title: str;
     description: str;
+    note: str;
     link mainTopic: GlobalTopic;
   }
   type GlobalNote {

@@ -6,6 +6,7 @@ interface Props {
 
 export default function Modal(props: Props) {
   const user = useUser()
+
   return (
     <>
       <style>{`

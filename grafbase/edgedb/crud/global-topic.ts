@@ -79,7 +79,7 @@ export async function changeGlobalTopicVerifiedstatus(
 }
 
 export async function getAllTopicNames() {
-  const topics = e
+  const topics = await e
     .select(e.GlobalTopic, () => ({
       name: true,
       prettyName: true

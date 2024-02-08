@@ -144,7 +144,7 @@ const PublishButton: solid.Component = () => {
 
 export default function App() {
   const global = useGlobalState()
-  const user = useUser()
+  // const user = useUser()
 
   // TODO: CMD+L = search files/topics in wiki
   // there was some issue with CMD+L not triggering, fix

@@ -11,14 +11,14 @@ import { createStore } from "solid-js/store"
 import { useLocation } from "solid-start"
 import { MobiusType } from "../root"
 
-// TODO: below types are bs because our graphql client is trash
-// it should use codegen with urql or something and should be able to import the types for each of the queries..
+// TODO: the types are off and it's impossible to keep in sync with what is coming from graphql queries
+// this should be coming from generated grafbase types..
+// after we move to urql / gql.tada client
 type Topic = {
   name: string
   prettyName: string
   verified: boolean
 }
-
 type Link = {
   id: string
   title: string
@@ -46,7 +46,6 @@ type PersonalLink = {
   mainTopic: MainTopicWithTitleAndPrettyName | null
   globalLink: GlobalLink
 }
-
 type User = {
   username: string
   email: string

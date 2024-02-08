@@ -67,7 +67,10 @@ export default function GuideSection(props: Props) {
                 id={link.id}
                 year={link.year}
                 protocol={link.protocol}
-                description={link.description}
+                // description={link.description}
+                // progressState={"Bookmark"}
+                description={""}
+                personalLinkId="1"
                 // liked={liked}
                 // progressState={
                 //   bookmarked

@@ -101,7 +101,14 @@ export default function Root() {
     } else if (error.includes("cannot-update-global-link-status")) {
       global.set("mode", "cannot-update-global-link-status")
     } else {
-      toast.error(JSON.parse(error).message)
+      // TODO: sometimes error is object with keys: ['0', '1'], not sure why
+      if (JSON.stringify(Object.keys(error)) === JSON.stringify(["0", "1"])) {
+        return
+      }
+      // TODO: sentry tracking, is the .keys check needed?
+      if (error && Object.keys(error).length !== 0) {
+        toast.error(JSON.parse(error).message)
+      }
     }
   }
   const mobius = createMobius(
