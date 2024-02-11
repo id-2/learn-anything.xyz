@@ -9,6 +9,9 @@
 # figjam going over the architecture:
 # https://www.figma.com/file/GelB3DWCdjQ2tU4v3kbHOj/LA-architecture?type=whiteboard&node-id=0%3A1&t=nL3VXI1ztTo7ohmd-1
 
+# TODO: https://discord.com/channels/841451783728529451/1206190575645098034
+# using extension pgvector;
+
 module default {
   type User {
     # unique email
@@ -360,10 +363,15 @@ module default {
     priceInUsdCents: int16;
   }
 }
-# TODO: think through more
-# users should be able to favorite some instance of NeuralCache
-# it should be tied to some mainTopic too
-# type NeuralCache {
-#   question: str;
-#   answer: str;
+# TODO: add ability to favorite, test it out
+# each QuestionAndAnswer is tied to some GlobalTopic
+# users should be able to favorite QuestionAndAnswer
+
+# scalar type OpenAIEmbedding extending
+#     ext::pgvector::vector<1536>;
+
+# type QuestionAndAnswer {
+#   required question: str;
+#   required answer: str;
+#   question_embedding: OpenAIEmbedding;
 # }

@@ -62,6 +62,7 @@ type User = {
   linksInProgress?: PersonalLink[]
   linksCompleted?: PersonalLink[]
   linksLiked?: PersonalLink[]
+  globalLinkIdsOfLinksBookmarked: string[]
 }
 
 // global state of user
@@ -80,7 +81,8 @@ export function createUserState(mobius: MobiusType) {
     linksBookmarked: [],
     linksInProgress: [],
     linksCompleted: [],
-    linksLiked: []
+    linksLiked: [],
+    globalLinkIdsOfLinksBookmarked: []
   })
 
   // TODO: find a faster/nicer way to do this..
@@ -170,6 +172,7 @@ export function createUserState(mobius: MobiusType) {
   // always fetching this so it's available in global palette search etc.
   onMount(async () => {
     // if (!(location.pathname === "/profile")) return
+
     const res = await mobius.query({
       getTopicsLearned: {
         topicsToLearn: {
@@ -264,6 +267,8 @@ export function createUserState(mobius: MobiusType) {
       }
     })
     const [data] = parseResponse(res)
+    // const linksBookmarked = data?.getAllLinks.linksBookmarked
+
     setUser({
       topicsLearning: data?.getTopicsLearned.topicsLearning,
       topicsToLearn: data?.getTopicsLearned.topicsToLearn,

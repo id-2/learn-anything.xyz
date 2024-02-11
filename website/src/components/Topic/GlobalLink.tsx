@@ -8,40 +8,74 @@ import { useGlobalState } from "../../GlobalContext/global"
 import { useUser } from "../../GlobalContext/user"
 import { useMobius } from "../../root"
 
+// TODO: maybe globalLinkId is enough to pass, can get all below from the id
+// probably not though
 interface Props {
+  globalLinkId: string
   title: string
-  id: string
   url: string
   protocol: string
   year: string | null
   description: string | null
-  personalLinkId: string
   // progressState?: "Bookmark" | "InProgress" | "Completed" | null
   // liked: boolean
+  // personalLinkId: string
 }
 
+// TODO: below TODO: can't be done as it will be too expensive to traverse all the links
+// TODO: maybe bad but right now GlobalLink is tied to global-topic.ts store as it's only used in global topics for now
+// it takes the globalLinkId passed, then gets all the necessary info to render the global link
+// to know if link is bookmarked, in progress, completed, liked, it uses the user store
+// on user actions like `bookmark`, it updates the user store's `globalLinkIdsOfLinksBookmarked`
+// ideally this part is reactive fully but for now we send request and then on success update globalLinkIdsOfLinksBookmarked array
 export default function GlobalLink(props: Props) {
   const mobius = useMobius()
   const user = useUser()
   const global = useGlobalState()
+  // const globalTopic = useGlobalTopic()
   const navigate = useNavigate()
   const [expandedLink, setExpandedLink] = createSignal(false)
   const [linkStatusChanging, setLinkStatusChanging] = createSignal()
 
+  const personalLinkDetails = createMemo(() => {
+    if (!user.user.signedIn) return
+    console.log("runs..")
+
+    const personalLinkId = 1
+    const learningStatus = "Bookmarked"
+    const liked = true
+    return {
+      personalLinkId,
+      learningStatus,
+      liked
+    }
+  })
+
+  // const globalLink = createMemo(() => {
+  //   // globalTopic.globalTopic.latestGlobalGuide.sections
+  //   return {
+  //     title: "title",
+  //     url: "url",
+  //     protocol: "https",
+  //     year: "2023",
+  //     description: "description"
+  //   }
+  // })
+
   const progressState = createMemo(() => {
     const bookmarked = user.user.linksBookmarked?.some(
-      (link) => link.globalLink.id === props.id
+      (link) => link.globalLink.id === props.globalLinkId
     )
     let inProgress
     let completed
     if (!bookmarked) {
       inProgress = user.user.linksInProgress?.some(
-        (link) => link.globalLink.id === props.id
+        (link) => link.globalLink.id === props.globalLinkId
       )
     }
     if (!bookmarked && !inProgress) {
       completed = user.user.linksCompleted?.some(
-        (link) => link.globalLink.id === props.id
+        (link) => link.globalLink.id === props.globalLinkId
       )
     }
     return bookmarked
@@ -53,13 +87,15 @@ export default function GlobalLink(props: Props) {
           : null
   })
   const liked = createMemo(() => {
-    return user.user.linksLiked?.some((link) => link.globalLink.id === props.id)
+    return user.user.linksLiked?.some(
+      (link) => link.globalLink.id === props.globalLinkId
+    )
   })
 
   createEffect(() => {
     let timeoutId: any
 
-    const targetElement = document.getElementById(props.id)
+    const targetElement = document.getElementById(props.globalLinkId)
 
     function handleMouseEnter() {
       clearTimeout(timeoutId) // Clear the timeout if the mouse re-enters before 1 second
@@ -96,7 +132,7 @@ export default function GlobalLink(props: Props) {
             setExpandedLink(!expandedLink())
           }
         }}
-        id={props.id}
+        id={props.globalLinkId}
       >
         <div class="w-full h-full flex-col sm:flex-row sm:flex-between sm:gap-10">
           <div class={clsx("w-fit flex-gap-[10px]", props.description && "")}>
@@ -141,6 +177,7 @@ export default function GlobalLink(props: Props) {
               <ui.ToolTip label="Bookmark">
                 <div
                   onClick={async () => {
+                    // TODO: if (!isSignedIn(navigate)) return should be part of urql calls themselves!
                     if (!isSignedIn(navigate)) return
                     setLinkStatusChanging("Bookmark")
                     if (progressState() === "Bookmark") {
@@ -159,7 +196,8 @@ export default function GlobalLink(props: Props) {
                           "linksBookmarked",
                           user.user.linksBookmarked
                             ? user.user.linksBookmarked.filter(
-                                (link) => link.globalLink.id !== props.id
+                                (link) =>
+                                  link.globalLink.id !== props.globalLinkId
                               )
                             : []
                         )
@@ -183,7 +221,7 @@ export default function GlobalLink(props: Props) {
                             title: props.title,
                             description: props.description,
                             globalLink: {
-                              id: props.id,
+                              id: props.globalLinkId,
                               title: props.title,
                               description: props.description,
                               url: props.url,
@@ -199,13 +237,13 @@ export default function GlobalLink(props: Props) {
                         user.set(
                           "linksInProgress",
                           user.user.linksInProgress?.filter(
-                            (link) => link.globalLink.id !== props.id
+                            (link) => link.globalLink.id !== props.globalLinkId
                           )
                         )
                         user.set(
                           "linksCompleted",
                           user.user.linksCompleted?.filter(
-                            (link) => link.globalLink.id !== props.id
+                            (link) => link.globalLink.id !== props.globalLinkId
                           )
                         )
                       }
@@ -215,7 +253,7 @@ export default function GlobalLink(props: Props) {
                   class={clsx(
                     "sm:hidden animate-[iconSlide_0.8s_ease-out_forwards] cursor-pointer rounded-[4px] active:scale-[1.2] active:bg-blue-500 hover:[&>*]:scale-[0.9] transition-all h-[26px] w-[26px] border-light dark:border-dark",
                     user.user.linksBookmarked?.some(
-                      (link) => link.globalLink.id === props.id
+                      (link) => link.globalLink.id === props.globalLinkId
                     ) && "bg-blue-500 border-none transition-all !flex-center"
                   )}
                 >
@@ -230,7 +268,7 @@ export default function GlobalLink(props: Props) {
                         // }
                         border={
                           user.user.linksBookmarked?.some(
-                            (link) => link.globalLink.id === props.id
+                            (link) => link.globalLink.id === props.globalLinkId
                           )
                             ? "red"
                             : "black"
@@ -270,7 +308,8 @@ export default function GlobalLink(props: Props) {
                           "linksInProgress",
                           user.user.linksInProgress
                             ? user.user.linksInProgress.filter(
-                                (link) => link.globalLink.id !== props.id
+                                (link) =>
+                                  link.globalLink.id !== props.globalLinkId
                               )
                             : []
                         )
@@ -296,7 +335,7 @@ export default function GlobalLink(props: Props) {
                             description: null,
                             mainTopic: null,
                             globalLink: {
-                              id: props.id,
+                              id: props.globalLinkId,
                               title: props.title,
                               description: props.description,
                               url: props.url,
@@ -307,13 +346,13 @@ export default function GlobalLink(props: Props) {
                         user.set(
                           "linksBookmarked",
                           user.user.linksBookmarked?.filter(
-                            (link) => link.globalLink.id !== props.id
+                            (link) => link.globalLink.id !== props.globalLinkId
                           )
                         )
                         user.set(
                           "linksCompleted",
                           user.user.linksCompleted?.filter(
-                            (link) => link.globalLink.id !== props.id
+                            (link) => link.globalLink.id !== props.globalLinkId
                           )
                         )
                       }
@@ -323,7 +362,7 @@ export default function GlobalLink(props: Props) {
                   class={clsx(
                     "sm:hidden cursor-pointer animate-[iconSlide_0.6s_ease-out_forwards] rounded-[4px] active:bg-blue-500 hover:opacity-50 transition-all h-[26px] w-[26px] border-light dark:border-dark ",
                     user.user.linksInProgress?.some(
-                      (link) => link.globalLink.id === props.id
+                      (link) => link.globalLink.id === props.globalLinkId
                     ) && "bg-blue-500 border-none transition-all !flex-center"
                   )}
                 >
@@ -335,7 +374,7 @@ export default function GlobalLink(props: Props) {
                         fill="white"
                         border={
                           user.user.linksBookmarked?.some(
-                            (link) => link.globalLink.id === props.id
+                            (link) => link.globalLink.id === props.globalLinkId
                           )
                             ? "red"
                             : "black"
@@ -375,7 +414,8 @@ export default function GlobalLink(props: Props) {
                           "linksCompleted",
                           user.user.linksCompleted
                             ? user.user.linksCompleted.filter(
-                                (link) => link.globalLink.id !== props.id
+                                (link) =>
+                                  link.globalLink.id !== props.globalLinkId
                               )
                             : []
                         )
@@ -399,7 +439,7 @@ export default function GlobalLink(props: Props) {
                             title: props.title,
                             description: props.description,
                             globalLink: {
-                              id: props.id,
+                              id: props.globalLinkId,
                               title: props.title,
                               description: props.description,
                               url: props.url,
@@ -414,13 +454,13 @@ export default function GlobalLink(props: Props) {
                         user.set(
                           "linksInProgress",
                           user.user.linksInProgress?.filter(
-                            (link) => link.globalLink.id !== props.id
+                            (link) => link.globalLink.id !== props.globalLinkId
                           )
                         )
                         user.set(
                           "linksBookmarked",
                           user.user.linksCompleted?.filter(
-                            (link) => link.globalLink.id !== props.id
+                            (link) => link.globalLink.id !== props.globalLinkId
                           )
                         )
                       }
@@ -430,7 +470,7 @@ export default function GlobalLink(props: Props) {
                   class={clsx(
                     "sm:hidden cursor-pointer rounded-[4px] animate-[iconSlide_0.4s_ease-out_forwards] active:scale-[1.2] active:bg-blue-500 hover:[&>*]:scale-[0.9] transition-all h-[26px] w-[26px] border-light dark:border-dark",
                     user.user.linksCompleted?.some(
-                      (link) => link.globalLink.id === props.id
+                      (link) => link.globalLink.id === props.globalLinkId
                     ) && "bg-blue-500 bg-opacity border-none !flex-center"
                   )}
                 >
@@ -441,7 +481,7 @@ export default function GlobalLink(props: Props) {
                         name="Checkmark"
                         border={
                           user.user.linksCompleted?.some(
-                            (link) => link.globalLink.id === props.id
+                            (link) => link.globalLink.id === props.globalLinkId
                           )
                             ? global.state.theme === "light"
                               ? "black"
@@ -487,7 +527,8 @@ export default function GlobalLink(props: Props) {
                           "linksLiked",
                           user.user.linksLiked
                             ? user.user.linksLiked.filter(
-                                (link) => link.globalLink.id !== props.id
+                                (link) =>
+                                  link.globalLink.id !== props.globalLinkId
                               )
                             : []
                         )
@@ -511,7 +552,7 @@ export default function GlobalLink(props: Props) {
                             title: props.title,
                             description: props.description,
                             globalLink: {
-                              id: props.id,
+                              id: props.globalLinkId,
                               title: props.title,
                               description: props.description,
                               url: props.url,
@@ -530,7 +571,7 @@ export default function GlobalLink(props: Props) {
                   class={clsx(
                     "sm:hidden cursor-pointer rounded-[4px] animate-[iconSlide_0.2s_ease-out_forwards] hover:opacity-50 transition-all h-[26px] w-[26px] border-light dark:border-dark",
                     user.user.linksLiked?.some(
-                      (link) => link.globalLink.id === props.id
+                      (link) => link.globalLink.id === props.globalLinkId
                     ) && "bg-red-500 border-none transition-all !flex-center"
                   )}
                 >
@@ -542,7 +583,7 @@ export default function GlobalLink(props: Props) {
                         fill="white"
                         border={
                           user.user.linksLiked?.some(
-                            (link) => link.globalLink.id === props.id
+                            (link) => link.globalLink.id === props.globalLinkId
                           )
                             ? "red"
                             : "black"

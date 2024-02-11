@@ -19,7 +19,6 @@ type Props = {
 }
 
 export default function GuideSection(props: Props) {
-  const topic = useGlobalTopic()
   return (
     <div
       id={props.title}
@@ -62,15 +61,15 @@ export default function GuideSection(props: Props) {
             // const liked = topic.globalTopic.linksLikedIds.includes(link.id)
             return (
               <GlobalLink
+                globalLinkId={link.id}
                 title={link.title}
                 url={link.url}
-                id={link.id}
                 year={link.year}
                 protocol={link.protocol}
+                description={""}
+                // personalLinkId="1"
                 // description={link.description}
                 // progressState={"Bookmark"}
-                description={""}
-                personalLinkId="1"
                 // liked={liked}
                 // progressState={
                 //   bookmarked

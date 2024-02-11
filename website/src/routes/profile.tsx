@@ -665,7 +665,7 @@ export default function Profile() {
                               link.title ? link.title : link.globalLink.title
                             }
                             url={link.globalLink.url}
-                            id={link.globalLink.id}
+                            globalLinkId={link.globalLink.id}
                             year={link.globalLink.year}
                             protocol={"https"}
                             description={
@@ -688,7 +688,7 @@ export default function Profile() {
                               link.title ? link.title : link.globalLink.title
                             }
                             url={link.globalLink.url}
-                            id={link.globalLink.id}
+                            globalLinkId={link.globalLink.id}
                             year={link.globalLink.year}
                             protocol={"https"}
                             description={
@@ -711,7 +711,7 @@ export default function Profile() {
                               link.title ? link.title : link.globalLink.title
                             }
                             url={link.globalLink.url}
-                            id={link.globalLink.id}
+                            globalLinkId={link.globalLink.id}
                             year={link.globalLink.year}
                             protocol={"https"}
                             description={
@@ -734,7 +734,7 @@ export default function Profile() {
                               link.title ? link.title : link.globalLink.title
                             }
                             url={link.globalLink.url}
-                            id={link.globalLink.id}
+                            globalLinkId={link.globalLink.id}
                             year={link.globalLink.year}
                             protocol={"https"}
                             description={

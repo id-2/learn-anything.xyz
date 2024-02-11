@@ -20,7 +20,7 @@ export default function GuideLinks() {
                 <GlobalLink
                   title={link.title}
                   url={link.url}
-                  id={link.id}
+                  globalLinkId={link.id}
                   year={link.year}
                   protocol={link.protocol}
                   description={link.description}
