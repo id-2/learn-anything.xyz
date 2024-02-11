@@ -305,7 +305,7 @@ const personalLinkAction = g.enum("personalLinkAction", [
   "unlike"
 ])
 g.mutation("updatePersonalLinkStatus", {
-  args: { action: g.enumRef(personalLinkAction), personalLinkId: g.string() },
+  args: { action: g.enumRef(personalLinkAction), globalLinkId: g.string() },
   returns: g.string(),
   resolver: "updatePersonalLinkStatus"
 })

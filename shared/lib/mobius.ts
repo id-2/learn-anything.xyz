@@ -18,7 +18,7 @@ type Mutation {
   createProduct(name: String!, description: String, imageUrl: String, websiteUrl: String, priceInUsdCents: Int): String!
   deletePersonalLink(personalLinkId: String!): String!
   updateTopicLearningStatus(learningStatus: learningStatus!, topicName: String!, verifiedTopic: Boolean!): String!
-  updatePersonalLinkStatus(action: personalLinkAction!, personalLinkId: String!): String!
+  updatePersonalLinkStatus(action: personalLinkAction!, globalLinkId: String!): String!
   addPersonalLink(url: String!, title: String!, linkState: linkState!, liked: Boolean!): String!
   cancelStripe: String!
   renewStripe: String!

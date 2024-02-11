@@ -118,25 +118,31 @@ export async function likeOrUnlikeGlobalLink(
 
 export async function updateGlobalLinkProgress(
   hankoId: string,
-  personalLinkId: string,
+  globalLinkId: string,
   action: "removeProgress" | "bookmark" | "inProgress" | "complete"
 ) {
   const foundUser = foundUserByHankoId(hankoId)
-  const foundLink = e.select(e.PersonalLink, () => ({
-    filter_single: { id: personalLinkId }
+  const foundGlobalLink = e.select(e.GlobalLink, () => ({
+    filter_single: { id: globalLinkId }
   }))
+  const foundPersonalLink = e.select(e.PersonalLink, () => ({
+    filter_single: { globalLink: foundGlobalLink }
+  }))
+  // const foundLink = e.select(e.PersonalLink, () => ({
+  //   filter_single: { id: personalLinkId }
+  // }))
 
   switch (action) {
-    case "removeProgress":
-      return e
-        .update(foundUser, () => ({
-          set: {
-            linksBookmarked: { "-=": foundLink },
-            linksInProgress: { "-=": foundLink },
-            linksCompleted: { "-=": foundLink }
-          }
-        }))
-        .run(client)
+    // case "removeProgress":
+    //   return e
+    //     .update(foundUser, () => ({
+    //       set: {
+    //         linksBookmarked: { "-=": foundLink },
+    //         linksInProgress: { "-=": foundLink },
+    //         linksCompleted: { "-=": foundLink }
+    //       }
+    //     }))
+    //     .run(client)
     case "bookmark":
       return await e
         .update(foundUser, (user) => ({
@@ -150,50 +156,52 @@ export async function updateGlobalLinkProgress(
             e.op(user.linksTracked, "<", 10)
           ),
           set: {
-            linksBookmarked: { "+=": foundLink },
-            linksInProgress: { "-=": foundLink },
-            linksCompleted: { "-=": foundLink }
+            linksBookmarked: {
+              "+=": foundPersonalLink
+            },
+            linksInProgress: { "-=": foundPersonalLink },
+            linksCompleted: { "-=": foundPersonalLink }
           }
         }))
         .run(client)
-    case "inProgress":
-      return e
-        .update(foundUser, (user) => ({
-          filter: e.op(
-            e.op(
-              e.op(user.memberUntil, ">", e.datetime_current()),
-              "??",
-              e.bool(false)
-            ),
-            "or",
-            e.op(user.linksTracked, "<", 10)
-          ),
-          set: {
-            linksBookmarked: { "-=": foundLink },
-            linksInProgress: { "+=": foundLink },
-            linksCompleted: { "-=": foundLink }
-          }
-        }))
-        .run(client)
-    case "complete":
-      return e
-        .update(foundUser, (user) => ({
-          filter: e.op(
-            e.op(
-              e.op(user.memberUntil, ">", e.datetime_current()),
-              "??",
-              e.bool(false)
-            ),
-            "or",
-            e.op(user.linksTracked, "<", 10)
-          ),
-          set: {
-            linksBookmarked: { "-=": foundLink },
-            linksInProgress: { "-=": foundLink },
-            linksCompleted: { "+=": foundLink }
-          }
-        }))
-        .run(client)
+    // case "inProgress":
+    //   return e
+    //     .update(foundUser, (user) => ({
+    //       filter: e.op(
+    //         e.op(
+    //           e.op(user.memberUntil, ">", e.datetime_current()),
+    //           "??",
+    //           e.bool(false)
+    //         ),
+    //         "or",
+    //         e.op(user.linksTracked, "<", 10)
+    //       ),
+    //       set: {
+    //         linksBookmarked: { "-=": foundLink },
+    //         linksInProgress: { "+=": foundLink },
+    //         linksCompleted: { "-=": foundLink }
+    //       }
+    //     }))
+    //     .run(client)
+    // case "complete":
+    //   return e
+    //     .update(foundUser, (user) => ({
+    //       filter: e.op(
+    //         e.op(
+    //           e.op(user.memberUntil, ">", e.datetime_current()),
+    //           "??",
+    //           e.bool(false)
+    //         ),
+    //         "or",
+    //         e.op(user.linksTracked, "<", 10)
+    //       ),
+    //       set: {
+    //         linksBookmarked: { "-=": foundLink },
+    //         linksInProgress: { "-=": foundLink },
+    //         linksCompleted: { "+=": foundLink }
+    //       }
+    //     }))
+    //     .run(client)
     default:
       break
   }

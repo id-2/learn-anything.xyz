@@ -1,7 +1,14 @@
+import { updateGlobalLinkProgress } from "../crud/global-link"
 import { getAllLinks } from "../crud/user"
 
 async function main() {
   const hankoId = process.env.LOCAL_USER_HANKO_ID!
+  const res = await updateGlobalLinkProgress(
+    hankoId,
+    "7e65e9b4-6da7-11ee-bab3-fbcd09b22e51",
+    "bookmark"
+  )
+  console.log(res)
   // const res = await likeOrUnlikeGlobalLink(
   //   hankoId,
   //   "727a00a8-45e9-11ee-aedd-ab0e6a0e65eb",
@@ -20,8 +27,8 @@ async function main() {
   //   false
   // )
   // console.log(res, "res")
-  const res = await getAllLinks(hankoId)
-  console.log(res)
+  // const res = await getAllLinks(hankoId)
+  // console.log(res)
   // const res = await getTopicsLearned(hankoId)
   // const res = await getGlobalTopicDetails("physics", hankoId)
   // const res = await updateGlobalLinkProgress(

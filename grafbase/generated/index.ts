@@ -190,7 +190,7 @@ export type Resolver = {
   'Mutation.createProduct': ResolverFn<Schema['Mutation'], { name: string, description: string | null, imageUrl: string | null, websiteUrl: string | null, priceInUsdCents: number | null,  }, string>
   'Mutation.deletePersonalLink': ResolverFn<Schema['Mutation'], { personalLinkId: string,  }, string>
   'Mutation.updateTopicLearningStatus': ResolverFn<Schema['Mutation'], { learningStatus: Schema['learningStatus'], topicName: string, verifiedTopic: boolean,  }, string>
-  'Mutation.updatePersonalLinkStatus': ResolverFn<Schema['Mutation'], { action: Schema['personalLinkAction'], personalLinkId: string,  }, string>
+  'Mutation.updatePersonalLinkStatus': ResolverFn<Schema['Mutation'], { action: Schema['personalLinkAction'], globalLinkId: string,  }, string>
   'Mutation.addPersonalLink': ResolverFn<Schema['Mutation'], { url: string, title: string, linkState: Schema['linkState'], liked: boolean,  }, string>
   'Mutation.cancelStripe': ResolverFn<Schema['Mutation'], {  }, string>
   'Mutation.renewStripe': ResolverFn<Schema['Mutation'], {  }, string>

@@ -202,12 +202,14 @@ export default function GlobalLink(props: Props) {
                             : []
                         )
                       }
-                    } else {
+                    }
+                    // not bookmarked
+                    else {
                       const res = await mobius.mutate({
                         updatePersonalLinkStatus: {
                           where: {
                             action: "bookmark",
-                            personalLinkId: props.personalLinkId
+                            globalLinkId: props.globalLinkId
                           },
                           select: true
                         }
