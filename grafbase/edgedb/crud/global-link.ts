@@ -125,9 +125,13 @@ export async function updateGlobalLinkProgress(
   const foundGlobalLink = e.select(e.GlobalLink, () => ({
     filter_single: { id: globalLinkId }
   }))
+  // const foundPersonalLink = e.select(e.PersonalLink, (pl) => ({
+  //   filter: e.op(pl.globalLink.id, "=", foundGlobalLink.id)
+  // }))
   const foundPersonalLink = e.select(e.PersonalLink, () => ({
     filter_single: { globalLink: foundGlobalLink }
   }))
+  // console.log(foundPersonalLink.run(client))
   // const foundLink = e.select(e.PersonalLink, () => ({
   //   filter_single: { id: personalLinkId }
   // }))

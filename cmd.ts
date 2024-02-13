@@ -123,8 +123,8 @@ VITE_GRAFBASE_INTERNAL_SECRET=secret`
 // TODO: add error checks, nice log in case folder already exists
 // https://github.com/wobsoriano/bnx/issues/3
 async function getFullMonorepo() {
-  await $`git clone https://github.com/learn-anything/ai`
-  await $`git clone https://github.com/learn-anything/solana`
+  await $`git clone https://github.com/learn-anything/tasks`
+  await $`git clone https://github.com/learn-anything/data`
 }
 
 // TODO: make better, automate full seed without any feedback from user

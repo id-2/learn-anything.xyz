@@ -1,8 +1,16 @@
 import { updateGlobalLinkProgress } from "../crud/global-link"
-import { getAllLinks } from "../crud/user"
+
+// TODO: move to @nikiv/utils
+function getEnv(envName: string) {
+  const env = process.env[envName]
+  if (env === undefined) {
+    throw new Error(`env ${envName} is missing`)
+  }
+  return env
+}
 
 async function main() {
-  const hankoId = process.env.LOCAL_USER_HANKO_ID!
+  const hankoId = getEnv("LOCAL_USER_HANKO_ID")
   const res = await updateGlobalLinkProgress(
     hankoId,
     "7e65e9b4-6da7-11ee-bab3-fbcd09b22e51",

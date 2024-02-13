@@ -14,9 +14,9 @@ The end goal of Learn Anything is to become the best place and tool for keeping 
 
 It is a fully open source project with an active community on [Discord](https://discord.com/invite/bxtD8x6aNF). There is great focus on both DX of developing everything LA and even more, the end user UX.
 
-Project consists of a [website](website), [desktop app](app), [mobile app](mobile).
+Repo consists of [website](website), [desktop](app) and [mobile](mobile) apps. See [file structure](#file-structure) for details.
 
-There is also separate repo of [AI](https://github.com/learn-anything/ai) where we train & fine tune LLMs to provide AI interfaces to all things knowledge. Part of the goals of LA is to reach AGI and do it in a fully open way. The current start of that journey is in providing state of art ability to index any knowledge of a person and provide chat bot interface to it with different privacy controls. As well as having state of the art chat bots for each of the topics in LA platform.
+There is separate repo of [tasks](https://github.com/learn-anything/tasks) which goal is to take the tasks used in LA and generalise it for use by community.
 
 If you're interested in the mission and like the project, join [Discord](https://discord.com/invite/bxtD8x6aNF) where you can ask questions and interact with community and read on to get you started writing your first code.
 
@@ -71,7 +71,7 @@ pnpm i
 bun setup
 ```
 
-`bun setup` runs `bun cmd.ts init` (can see [cmd.ts](cmd.ts) code for what it does). It will create `.env` files for you so you can start coding the project fast. It will also `git clone` [seed](https://github.com/learn-anything/seed), [ai](https://github.com/learn-anything/ai) and [solana](https://learn-anything.xyz/solana) repos.
+`bun setup` runs `bun cmd.ts init` (can see [cmd.ts](cmd.ts) code for what it does). It will create `.env` files for you so you can start coding the project fast. It will also `git clone` [tasks](https://github.com/learn-anything/tasks) and [data](https://github.com/learn-anything/data) repos.
 
 Monorepo tooling should get better soon. If you're intested in making it better by integrating [Nx](https://nx.dev) or similar tools, please reach out on [Discord](https://discord.com/invite/bxtD8x6aNF).
 
@@ -134,7 +134,7 @@ This gives you type safe access to EdgeDB and lets you use the query builder nic
 bun db:seed
 ```
 
-Above command is incomplete but will be soon. It should take the files you got in [seed folder](https://github.com/learn-anything/seed) (after running `bun dev-setup`) and fill EdgeDB db with content necessary to develop LA very fast.
+Above command is incomplete but will be soon. It should take the files you got in [data folder](https://github.com/learn-anything/data) (after running `bun dev-setup`) and fill EdgeDB db with content necessary to develop LA very fast.
 
 Reach out on [Discord](https://discord.com/invite/bxtD8x6aNF) to get a semi working version of the command. ♥️
 
@@ -212,7 +212,7 @@ bun app
 
 In the app you get after running `bun app`, you will see DevTools panel in bottom right corner. It contains a list of useful actions you can run to aid you.
 
-One of the actions is `Seed TinyBase`. This will seed your local TinyBase store/sqlite with [one of the wikis](https://github.com/learn-anything/seed/tree/main/wiki/nikita) in seed folder.
+One of the actions is `Seed TinyBase`. This will seed your local TinyBase store/sqlite with [one of the wikis](https://github.com/learn-anything/data/tree/main/wiki/nikita) in seed folder.
 
 Read [app/packages/preload/src/index.ts](app/packages/preload/src/index.ts) file for details. `syncWikiFromSeed` is the function. -->
 
@@ -278,8 +278,6 @@ Ran with `bun <Name>`
 | Name                | Command                                                                                                                                                     |
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | setup               | bun cmd.ts init                                                                                                                                             |
-| seed-clone          | git clone https://github.com/learn-anything/seed                                                                                                            |
-| seed-update         | cd seed && git pull                                                                                                                                         |
 | app                 | cd app && bun tauri:dev                                                                                                                                     |
 | web                 | cd website && bun dev                                                                                                                                       |
 | web:build           | cd website && solid-start build                                                                                                                             |
