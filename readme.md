@@ -250,7 +250,8 @@ If issue is not already present ([do search](../../issues) first), open [new iss
 
 It's okay to submit draft PR as you can get help along the way to make it merge ready.
 
-We want this project to have by far the best DX of any open source project on GitHub. There will be live streams of developing the code, various educational videos and a lot more in coming time.
+<!-- TODO: add live streams -->
+<!-- We want this project to have by far the best DX of any open source project on GitHub. There will be live streams of developing the code, various educational videos and a lot more in coming time. -->
 
 ## Docs
 
